@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Vim -->
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   viewBox="0 0 1920 1200"
+   id="svg2"
+   version="1.1"
+   width="1920px"
+   height="1200px">
+  <style type="text/css" ><![CDATA[
+    .btn {
+      fill: #fff;
+      stroke: #000;
+      stroke-width:0.5;
+    }
+    .btnGray {
+      fill: gray;
+      stroke: #000;
+      stroke-width:0.5;
+    }
+  ]]></style>
+  <defs id="defs">
+    <rect id="box1.00" x="1" y="1" rx="1" ry="1"  width="18" height="18" class="btn" />
+    <circle id="basecirc" r="100" stroke="#6666" fill="none" stroke-width="1" />
+    <g id="thingy">
+      <path d="M0 0 L86.6 -50 M0 0 L0 100 M0 0 L-86.6 -50" />
+
+      <!--
+      <path d="M0 -50 L43.3 -75 L86.6 -50 L86.6 0 L43.3 25 L43.3 75
+               L0 100 L-43.3 75 L-43.3 25 L-86.6 0 L-86.6 -50 L -43.3 -75 Z" />
+      -->
+      <path d="M43.3 75 L 0 100 L-43.3 75 L-43.3 25 L-86.6 0 L-86.6 -50 L -43.3 -75" />
+    </g>
+    <pattern id="pattern1" width="64.95" height="37.5" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke-width="4" stroke="#fff" transform="scale(0.25 0.25) translate(-86.6 -50)">
+        <rect width="500" height="500" fill="#000" />
+        <use xlink:href="#thingy" x="0" y="0" />
+        <use xlink:href="#thingy" x="129.9" y="75" />
+        <use xlink:href="#thingy" x="259.8" y="0" />
+        <use xlink:href="#thingy" x="389.7" y="75" />
+        <use xlink:href="#thingy" x="519.6" y="0" />
+
+        <use xlink:href="#thingy" x="0" y="150" />
+        <use xlink:href="#thingy" x="129.9" y="225" />
+        <use xlink:href="#thingy" x="259.8" y="150" />
+        <use xlink:href="#thingy" x="389.7" y="225" />
+        <use xlink:href="#thingy" x="519.6" y="150" />
+
+        <use xlink:href="#thingy" x="0" y="300" />
+        <use xlink:href="#thingy" x="129.9" y="375" />
+        <use xlink:href="#thingy" x="259.8" y="300" />
+        <use xlink:href="#thingy" x="389.7" y="375" />
+        <use xlink:href="#thingy" x="519.6" y="300" />
+      </g>
+    </pattern>
+  </defs>
+  <!--
+  <rect x="100" y="100" rx="0" ry="0" width="100" height="100" fill="#cccc" />
+  <path d="M0 0 l50 0 l50 50 l50 -50 l50 0
+           l0 50 l-50 50 l0 50 l-50 50
+           l-50 -50 l0 -50 l-50 -50
+           Z" />
+  <g transform="translate(300 300)">
+    <use xlink:href="#basecirc" x="0" y="-100" />
+    <use xlink:href="#basecirc" x="0" y="0" />
+    <use xlink:href="#basecirc" x="0" y="100" />
+
+    <use xlink:href="#basecirc" x="86.6" y="-50" />
+    <use xlink:href="#basecirc" x="86.6" y="50" />
+
+    <use xlink:href="#basecirc" x="-86.6" y="-50" />
+    <use xlink:href="#basecirc" x="-86.6" y="50" />
+
+    <path d="M0 -100 L86.6 -50 L86.6 50 L0 100 L-86.6 50 L-86.6 -50Z" fill="none" stroke-width="0.5" stroke="#cccc" />
+
+  </g>
+  <g fill="none" stroke-width="2" stroke="#000">
+    <use xlink:href="#thingy" x="0" y="0" />
+    <use xlink:href="#thingy" x="129.9" y="75" />
+    <use xlink:href="#thingy" x="259.8" y="0" />
+    <use xlink:href="#thingy" x="389.7" y="75" />
+    <use xlink:href="#thingy" x="519.6" y="0" />
+
+    <use xlink:href="#thingy" x="0" y="150" />
+    <use xlink:href="#thingy" x="129.9" y="225" />
+    <use xlink:href="#thingy" x="259.8" y="150" stroke="red" />
+    <use xlink:href="#thingy" x="389.7" y="225" />
+    <use xlink:href="#thingy" x="519.6" y="150" />
+
+    <use xlink:href="#thingy" x="0" y="300" />
+    <use xlink:href="#thingy" x="129.9" y="375" />
+    <use xlink:href="#thingy" x="259.8" y="300" />
+    <use xlink:href="#thingy" x="389.7" y="375" />
+    <use xlink:href="#thingy" x="519.6" y="300" />
+  </g>
+  -->
+  <rect width="100%" height="100%" fill="url(#pattern1)" />
+  <!-- <rect width="129.9" height="75" fill="#6666" /> -->
+</svg>
