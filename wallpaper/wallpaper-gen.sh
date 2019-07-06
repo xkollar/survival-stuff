@@ -26,7 +26,7 @@ function get_resolution() {
 }
 
 function get_single_image_path() {
-    find "${IMAGES_DIR}" -type f | shuf -n1 | xargs realpath
+    find -L "${IMAGES_DIR}" -type f | shuf -n1 | xargs realpath
 }
 
 function run_hack() {
@@ -61,6 +61,7 @@ main() {
     mapfile -t -d $'\0' hacks < <( find "${HACKS_DIR}" -executable -type f -print0 )
 
     hack=${hacks[$(( RANDOM % ${#hacks[@]} ))]}
+    echo "Running: ${hack}"
     mapfile -t usage < <( ${hack} | tr -d '\n' | tr ' ' '\n' )
     run_hack "${hack}" "${usage[@]}"
 
