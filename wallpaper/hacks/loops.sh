@@ -2,10 +2,17 @@
 
 set -eu
 
-PROGDIR=$( dirname "$( readlink -f "${0}" )" )
+declare -r PROGDIR=$( dirname "$( readlink -f "${0}" )" )
+declare -r RESOLUTION=${1?Resolution}; shift
+declare -r DESTINATION=${1?Destination}; shift
+
+if [[ "${#}" -gt 0 ]]; then
+    echo Unexpected arguments: "${@}"
+    exit 1
+fi
 
 convert \
-    -size 1280x800 xc: +noise Random \
+    -size "${RESOLUTION}" xc: +noise Random \
     -virtual-pixel tile \
     -modulate 100,50 \
     -blur 0x25 \
@@ -22,10 +29,11 @@ convert \
     png:- \
 | convert - +clone +clone +append +append +clone +clone -append -append - \
 | convert - \
-    +antialias -background transparent "${PROGDIR}/x.svg" -gravity center -composite \
-    ~/.generated-bg.png
-
-    # -shave 1x1 -bordercolor black -border 1x1 \
-
-feh --image-bg black --bg-tile ~/.generated-bg.png
-# while :; do echo -ne "\\n$(date +'[%FT%T] Generating')... "; bash ~/.xmonad/wallpaper/generate-loops.sh; echo -n done; sleep 300; done
+    +antialias \
+    -background transparent \
+    -size "${RESOLUTION}" \
+    "${PROGDIR}/loops-data.svg" \
+    -gravity center \
+    -composite \
+    -extent "${RESOLUTION}" \
+    "${DESTINATION}"
