@@ -16,19 +16,15 @@ if [[ "${#}" -gt 0 ]]; then
     exit 1
 fi
 
-convert \
-    -size "${RESOLUTION}" \
-    -virtual-pixel tile \
-    xc: \
-    +noise Random \
-    -blur 0x10 \
-    -paint 3 \
-    -auto-level \
-    -modulate 100,150 \
-    "${PROGDIR}/cubes-data.svg" \
-    -compose Darken \
-    -composite \
+convert -size ${RESOLUTION} xc: +noise Random \
+    -virtual-pixel Tile \
+    -resize '200%' \
+    -blur 0x15 \
+    -equalize \
+    -edge 15 \
+    -edge 1 \
+    -resize '50%' \
     \( +clone -blur 0x3 -normalize -alpha on -channel a -evaluate set 25% \) \
-    -compose Over \
     -composite \
+    -normalize \
     "${DESTINATION}"

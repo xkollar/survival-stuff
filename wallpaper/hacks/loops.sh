@@ -2,6 +2,11 @@
 
 set -eu
 
+if [[ "${#}" -eq 0 ]]; then
+    echo "usage: RESOLUTION DESTINATION"
+    exit 0
+fi
+
 declare -r PROGDIR=$( dirname "$( readlink -f "${0}" )" )
 declare -r RESOLUTION=${1?Resolution}; shift
 declare -r DESTINATION=${1?Destination}; shift
