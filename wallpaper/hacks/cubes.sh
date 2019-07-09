@@ -28,7 +28,9 @@ convert \
     "${PROGDIR}/cubes-data.svg" \
     -compose Darken \
     -composite \
-    \( +clone -blur 0x3 -normalize -alpha on -channel a -evaluate set 25% \) \
+    \( +clone -blur 0x3 -normalize -modulate 100,140 -alpha on -channel a -evaluate set 35% \) \
     -compose Over \
     -composite \
     "${DESTINATION}"
+
+## \( +clone -blur 0x3 -normalize -modulate 100,140 -matte -channel A +level 0,35% +channel \) \
