@@ -25,7 +25,7 @@ convert \
     -paint 3 \
     -auto-level \
     -modulate 100,150 \
-    "${PROGDIR}/cubes-data.svg" \
+    \( +clone -fill "${PROGDIR}/cubes-data.svg" -draw 'color 0,0 reset' \) \
     -compose Darken \
     -composite \
     \( +clone -blur 0x3 -normalize -modulate 100,140 -alpha on -channel a -evaluate set 35% \) \
