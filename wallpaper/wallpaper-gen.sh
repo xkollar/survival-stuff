@@ -60,7 +60,15 @@ function run_hack() {
 main() {
     mapfile -t -d $'\0' hacks < <( find "${HACKS_DIR}" -executable -type f -print0 )
 
-    hack=${hacks[$(( RANDOM % ${#hacks[@]} ))]}
+    if [[ "${#}" -ge 1 ]]; then
+        if [[ -x "${1}" ]]; then
+            hack=${1}
+        else
+            exit 1
+        fi
+    else
+        hack=${hacks[$(( RANDOM % ${#hacks[@]} ))]}
+    fi
     echo "Running: ${hack}"
     mapfile -t usage < <( ${hack} | tr -d '\n' | tr ' ' '\n' )
     run_hack "${hack}" "${usage[@]}"
