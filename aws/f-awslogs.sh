@@ -7,6 +7,6 @@ log=$( awslogs groups | fzf )
 while true; do
     seq 10
     awslogs get "${@:--w}" "${log}"
-    echo -n "Again? "
+    echo -n "Again ${log}? "
     read
 done
