@@ -43,7 +43,7 @@ function help() {
 Usage: ${0} --docker-image IMAGE [OPTS] [-- [extra-docker-options]]
 
 Otions:
-    --docker_image       Docker image to run
+    --docker-image       Docker image to run
     --ssh-dir DIR        Directory to mount as ~/.ssh
     --ports-web          Forward 3000:3000
     --ports-app          Forward expo-related ports
@@ -71,12 +71,12 @@ function main() {
     local ssh_dir
     local forward_ssh_agent=false
     local forward_x=false
-    local persistent_bash_history=true
     local unconfined_debug=false
-    local bash_history_file=${GIT_ROOT_DIR}/docker/bash_history
     local docker_image
     local ports_web=false
     local ports_app=false
+    local persistent_home=true
+    local pass_host_aws_config=true
 
     local -a extra_volume_params=( )
     local -a extra_env_params=( )
@@ -139,9 +139,8 @@ function main() {
         extra_volume_params+=( --volume /tmp/.X11-unix:/tmp/.X11-unix )
     fi
 
-    if [[ "${persistent_bash_history}" == true ]]; then
-        touch "${bash_history_file}"
-        extra_volume_params+=( --volume "$( realpath "${bash_history_file}" ):/home/${DOCKER_USER}/.bash_history"  )
+    if [[ "${persistent_home}" == true ]]; then
+        extra_volume_params+=( --volume "$( realpath "${PROG_DIR}/persistent-home" ):/home/${DOCKER_USER}"  )
     fi
 
     if [[ "${unconfined_debug}" == true ]]; then
@@ -158,6 +157,11 @@ function main() {
         extra_other_params+=( --publish 19000:19000 --publish 19001:19001 --publish 19002:19002 )
     fi
 
+    if [[ "${pass_host_aws_config}" == true ]]; then
+        # To be able to run strace and similar inside the container
+        extra_volume_params+=( -v ${HOME}/.aws:/home/${DOCKER_USER}/.aws:ro  )
+    fi
+
     check_docker_image "${docker_image}"
 
     exec docker run --rm -it \
@@ -167,7 +171,7 @@ function main() {
     --env "LOCAL_USER_GROUP=${GROUPS[0]}" \
     "${extra_env_params[@]}" \
     "${extra_volume_params[@]}" \
-    --volume "${PROG_DIR}:/entrypoint.sh" \
+    --volume "${PROG_DIR}/entrypoint.sh:/entrypoint.sh:ro" \
     --entrypoint /entrypoint.sh \
     "${extra_other_params[@]}" \
     "${docker_image}" \
