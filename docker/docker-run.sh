@@ -69,14 +69,14 @@ function check_docker_image {
 
 function main() {
     local ssh_dir
+    local docker_image
     local forward_ssh_agent=false
     local forward_x=false
-    local unconfined_debug=false
-    local docker_image
-    local ports_web=false
-    local ports_app=false
-    local persistent_home=true
     local pass_host_aws_config=true
+    local persistent_home=true
+    local ports_app=false
+    local ports_web=false
+    local unconfined_debug=false
 
     local -a extra_volume_params=( )
     local -a extra_env_params=( )
@@ -126,7 +126,7 @@ function main() {
         esac
     done
 
-    if [[ ! -z "${ssh_dir+x}" ]]; then
+    if [[ -n "${ssh_dir+x}" ]]; then
         extra_volume_params+=( --volume "$( realpath "${ssh_dir}" ):/home/${DOCKER_USER}/.ssh:ro" )
     fi
     if [[ "${forward_ssh_agent}" == true ]]; then
@@ -152,14 +152,13 @@ function main() {
         extra_other_params+=( --publish 3000:3000 )
     fi
 
-    if [[ "${unconfined_debug}" == true ]]; then
-        # To be able to run strace and similar inside the container
+    if [[ "${ports_app}" == true ]]; then
         extra_other_params+=( --publish 19000:19000 --publish 19001:19001 --publish 19002:19002 )
     fi
 
     if [[ "${pass_host_aws_config}" == true ]]; then
         # To be able to run strace and similar inside the container
-        extra_volume_params+=( -v ${HOME}/.aws:/home/${DOCKER_USER}/.aws:ro  )
+        extra_volume_params+=( --volume "${HOME}/.aws:/home/${DOCKER_USER}/.aws:ro"  )
     fi
 
     check_docker_image "${docker_image}"

@@ -7,7 +7,6 @@ if [[ "${#}" -eq 0 ]]; then
     exit 0
 fi
 
-declare -r PROGDIR=$( dirname "$( readlink -f "${0}" )" )
 declare -r RESOLUTION=${1?Resolution}; shift
 declare -r DESTINATION=${1?Destination}; shift
 
@@ -16,7 +15,7 @@ if [[ "${#}" -gt 0 ]]; then
     exit 1
 fi
 
-convert -size ${RESOLUTION} xc: +noise Random \
+convert -size "${RESOLUTION}" xc: +noise Random \
     -virtual-pixel Tile \
     -resize '200%' \
     -blur 0x15 \

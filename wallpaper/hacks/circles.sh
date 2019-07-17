@@ -7,7 +7,6 @@ if [[ "${#}" -eq 0 ]]; then
     exit 0
 fi
 
-declare -r PROGDIR=$( dirname "$( readlink -f "${0}" )" )
 declare -r RESOLUTION=${1?Resolution}; shift
 declare -r IMAGE=${1?Image}; shift
 declare -r DESTINATION=${1?Destination}; shift
