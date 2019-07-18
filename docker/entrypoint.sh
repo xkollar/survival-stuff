@@ -13,6 +13,7 @@ if ! getent passwd "${LOCAL_USER_NAME}" >/dev/null; then
     useradd \
         --gid "${LOCAL_USER_GROUP}" \
         --uid "${LOCAL_USER_ID}" \
+        --shell "$( grep --line-regexp "$( which bash )" /etc/shells )" \
         "${LOCAL_USER_NAME}"
 else
     usermod \
@@ -39,9 +40,9 @@ if type -t setuidgid >/dev/null; then
     ## And now play nice (mostly for file permissions)
     HOME="/home/${LOCAL_USER_NAME}" setuidgid "${LOCAL_USER_NAME}" "${@-bash}"
 else
-    echo "Command setuidgid not found in the docker image."
+    echo 'Command setuidgid not found in the docker image.'
     if [[ ${#} -eq 0 ]]; then
-        echo "Using 'su'... not ideal but __might__ work"
+        echo 'Using 'su' ... not ideal but *might* work.'
         su - "${LOCAL_USER_NAME}"
     else
         "Exiting..."
