@@ -6,6 +6,7 @@ RUN true \
         apt-transport-https \
         bc \
         curl \
+        daemontools \
         gawk \
         git \
         grep \
