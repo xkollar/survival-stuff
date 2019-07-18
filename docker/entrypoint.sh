@@ -35,6 +35,8 @@ chown "${LOCAL_USER_NAME}:${LOCAL_USER_GROUP}" "/home/${LOCAL_USER_NAME}"
 ## Remove control variables to keep environmnent reasonably clean
 export -n LOCAL_USER_NAME LOCAL_USER_GROUP LOCAL_USER_ID
 
+# So we can use screen
+chown "${LOCAL_USER_NAME}:${LOCAL_USER_GROUP}" "$( tty )"
 
 if type -t setuidgid >/dev/null; then
     ## And now play nice (mostly for file permissions)
