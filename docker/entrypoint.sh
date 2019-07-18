@@ -43,7 +43,7 @@ else
     echo 'Command setuidgid not found in the docker image.'
     if [[ ${#} -eq 0 ]]; then
         echo 'Using 'su' ... not ideal but *might* work.'
-        su - "${LOCAL_USER_NAME}"
+        su "${LOCAL_USER_NAME}"
     else
         "Exiting..."
     fi

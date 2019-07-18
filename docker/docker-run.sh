@@ -33,10 +33,11 @@ fi
 ## }}} Tools #################################################################
 
 readonly PROG_DIR=$( dirname "$( realpath "${0}" )" )
-readonly GIT_ROOT_DIR=$( cd "${PROG_DIR}" && git rev-parse --show-toplevel )
+readonly GIT_ROOT_DIR=$( git rev-parse --show-toplevel )
+readonly DOCKER_GIT_ROOT_DIR=/repo
 
 readonly DOCKER_HOSTNAME=docker-for-dev
-readonly DOCKER_USER=docker-user
+readonly DOCKER_USER=devel
 
 function help() {
     cat <<__EOF__
@@ -77,6 +78,7 @@ function main() {
     local ports_app=false
     local ports_web=false
     local unconfined_debug=false
+    local work_dir=${DOCKER_GIT_ROOT_DIR}
 
     local -a extra_volume_params=( )
     local -a extra_env_params=( )
@@ -115,6 +117,9 @@ function main() {
                 ;;
             --unconfined-debug)
                 unconfined_debug=true
+                ;;
+            --cd)
+                work_dir=${DOCKER_GIT_ROOT_DIR}/$( git rev-parse --show-prefix )
                 ;;
             --)
                 # Keep rest as positional arguments
@@ -169,9 +174,11 @@ function main() {
     --env "LOCAL_USER_ID=${UID}" \
     --env "LOCAL_USER_GROUP=${GROUPS[0]}" \
     "${extra_env_params[@]}" \
+    --volume "${GIT_ROOT_DIR}:${DOCKER_GIT_ROOT_DIR}" \
     "${extra_volume_params[@]}" \
     --volume "${PROG_DIR}/entrypoint.sh:/entrypoint.sh:ro" \
     --entrypoint /entrypoint.sh \
+    --workdir "${work_dir}" \
     "${extra_other_params[@]}" \
     "${docker_image}" \
     "${@}"
