@@ -36,7 +36,7 @@ readonly PROG_DIR=$( dirname "$( realpath "${0}" )" )
 readonly GIT_ROOT_DIR=$( git rev-parse --show-toplevel )
 readonly DOCKER_GIT_ROOT_DIR=/repo
 
-readonly DOCKER_HOSTNAME=docker-for-dev
+declare DOCKER_HOSTNAME=docker-for-dev
 readonly DOCKER_USER=devel
 
 function help() {
@@ -51,6 +51,7 @@ Otions:
     --forward-ssh-agent  Make host's ssh-agent accessible inside docker
     --forward-x          Make host's X11 sockets accessible inside docker
                          Best used with Xephyr session
+    --current-directory  Instead of git rood enter correspoding CWD
     --unconfined-debug   Disable security confinement
                          Allows strace and similar
     -h, --help           Display this help and exit
@@ -118,7 +119,7 @@ function main() {
             --unconfined-debug)
                 unconfined_debug=true
                 ;;
-            --cd)
+            --current-directory)
                 work_dir=${DOCKER_GIT_ROOT_DIR}/$( git rev-parse --show-prefix )
                 ;;
             --)
@@ -167,6 +168,7 @@ function main() {
     fi
 
     check_docker_image "${docker_image}"
+    DOCKER_HOSTNAME=${docker_image//[^a-z0-9-]/-}
 
     exec docker run --rm -it \
     --hostname "${DOCKER_HOSTNAME}" \
