@@ -2,8 +2,7 @@
 
 set -eu
 
-declare -r PROGDIR
-PROGDIR=$( dirname "$( readlink -f "${0}" )" )
+declare -r PROGDIR=$( dirname "$( readlink -f "${0}" )" )
 
 declare -r HACKS_DIR=${PROGDIR}/hacks
 
