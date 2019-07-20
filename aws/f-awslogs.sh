@@ -8,5 +8,5 @@ while true; do
     seq 10
     awslogs get "${@:--w}" "${log}"
     echo -n "Again ${log}? "
-    read
+    read -r
 done

@@ -2,7 +2,7 @@
 
 set -eu
 
-readonly PROG_DIR=$( cd "$( dirname "${0}" )" && pwd )
+readonly PROG_DIR=$( cd "$( dirname "${0}" )" && pwd -P )
 
 groupadd \
     --gid "${LOCAL_USER_GROUP:-1000}" dev \
@@ -13,7 +13,7 @@ if ! getent passwd "${LOCAL_USER_NAME}" >/dev/null; then
     useradd \
         --gid "${LOCAL_USER_GROUP}" \
         --uid "${LOCAL_USER_ID}" \
-        --shell "$( grep --line-regexp "$( which bash )" /etc/shells )" \
+        --shell "$( grep --line-regexp "$( command -v bash )" /etc/shells )" \
         "${LOCAL_USER_NAME}"
 else
     usermod \
@@ -44,7 +44,7 @@ if type -t setuidgid >/dev/null; then
 else
     echo 'Command setuidgid not found in the docker image.'
     if [[ ${#} -eq 0 ]]; then
-        echo 'Using 'su' ... not ideal but *might* work.'
+        echo 'Using '"'su'"' ... not ideal but *might* work.'
         su "${LOCAL_USER_NAME}"
     else
         "Exiting..."
