@@ -9,6 +9,10 @@ groupadd \
 &> /dev/null \
 || true
 
+if getent passwd "${LOCAL_USER_ID}" >/dev/null; then
+    usermod --login "${LOCAL_USER_NAME}" "$( getent passwd "${LOCAL_USER_ID}" | sed 's/:.*//' )"
+fi
+
 if ! getent passwd "${LOCAL_USER_NAME}" >/dev/null; then
     useradd \
         --gid "${LOCAL_USER_GROUP}" \
