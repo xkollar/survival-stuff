@@ -10,7 +10,9 @@ groupadd \
 || true
 
 if getent passwd "${LOCAL_USER_ID}" >/dev/null; then
-    usermod --login "${LOCAL_USER_NAME}" "$( getent passwd "${LOCAL_USER_ID}" | sed 's/:.*//' )"
+    usermod \
+        --login "${LOCAL_USER_NAME}" \
+        "$( getent passwd "${LOCAL_USER_ID}" | sed 's/:.*//' )"
 fi
 
 if ! getent passwd "${LOCAL_USER_NAME}" >/dev/null; then
@@ -23,6 +25,7 @@ else
     usermod \
         --uid "${LOCAL_USER_ID:-1000}" \
         --gid "${LOCAL_USER_GROUP:-1000}" \
+        --home "/home/${LOCAL_USER_NAME}" \
         "${LOCAL_USER_NAME}" \
     &> /dev/null
 
