@@ -3,6 +3,7 @@
 set -eu
 
 log=$( awslogs groups | fzf )
+echo "${log}"
 
 while true; do
     seq 10
