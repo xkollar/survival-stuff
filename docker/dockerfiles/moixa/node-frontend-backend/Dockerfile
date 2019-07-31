@@ -7,6 +7,7 @@ RUN true \
         bc \
         curl \
         daemontools \
+        docker.io \
         gawk \
         git \
         grep \
@@ -15,6 +16,7 @@ RUN true \
         python3 \
         python3-pip \
         python3-setuptools \
+        rsync \
         screen \
         unzip \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
