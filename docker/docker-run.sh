@@ -132,7 +132,7 @@ function main() {
         esac
     done
 
-    if [[ -n "${ssh_dir+x}" ]]; then
+    if [[ "${ssh_dir+set}" == set ]]; then
         extra_volume_params+=( --volume "$( realpath "${ssh_dir}" ):/home/${DOCKER_USER}/.ssh:ro" )
     fi
     if [[ "${forward_ssh_agent}" == true ]]; then
