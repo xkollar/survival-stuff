@@ -78,4 +78,4 @@ main() {
 
 main "${@}"
 
-# while :; do echo -n "$(date +'[%FT%T] Generating')... "; wallpaper-gen.sh; echo -n done; read -n 300 || echo; done
+# while :; do echo -n "$(date +'[%FT%T] Generating')... "; wallpaper-gen.sh >/dev/null; echo -n done; read -n 300 || echo; done
