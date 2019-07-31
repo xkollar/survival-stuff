@@ -51,6 +51,7 @@ Otions:
     --forward-ssh-agent  Make host's ssh-agent accessible inside docker
     --forward-x          Make host's X11 sockets accessible inside docker
                          Best used with Xephyr session
+    --host-docker        Make host's docker socket accessible inside docker
     --current-directory  Instead of git rood enter correspoding CWD
     --unconfined-debug   Disable security confinement
                          Allows strace and similar
@@ -74,6 +75,7 @@ function main() {
     local docker_image
     local forward_ssh_agent=false
     local forward_x=false
+    local host_docker=false
     local pass_host_aws_config=true
     local persistent_home=true
     local ports_app=false
@@ -116,6 +118,9 @@ function main() {
             --forward-x)
                 forward_x=true
                 ;;
+            --host-docker)
+                host_docker=true
+                ;;
             --unconfined-debug)
                 unconfined_debug=true
                 ;;
@@ -143,6 +148,11 @@ function main() {
     if [[ "${forward_x}" == true ]]; then
         extra_env_params+=( --env "DISPLAY=${DISPLAY}" )
         extra_volume_params+=( --volume /tmp/.X11-unix:/tmp/.X11-unix )
+    fi
+
+    if [[ "${host_docker}" == true ]]; then
+        extra_env_params+=( --env "HOST_DOCKER_GID=$( getent group docker | cut -d: -f3 )" )
+        extra_volume_params+=( --volume /var/run/docker.sock:/var/run/docker.sock )
     fi
 
     if [[ "${persistent_home}" == true ]]; then

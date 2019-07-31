@@ -35,15 +35,22 @@ else
     &> /dev/null || true
 fi
 
+if [[ ${HOST_DOCKER_GID+set} == set && -e /var/run/docker.sock ]]; then
+    groupadd --non-unique --gid "${HOST_DOCKER_GID}" host-docker
+    usermod --gid host-docker "${LOCAL_USER_NAME}" &> /dev/null || true
+    # when we figure out how to not drop supplemental group
+    # usermod --append --groups host-docker "${LOCAL_USER_NAME}"
+fi
+
 ## Do some superuser stuff here before dropping priviledges
 
 chown "${LOCAL_USER_NAME}:${LOCAL_USER_GROUP}" "/home/${LOCAL_USER_NAME}"
 
-## Remove control variables to keep environmnent reasonably clean
-export -n LOCAL_USER_NAME LOCAL_USER_GROUP LOCAL_USER_ID
-
 # So we can use screen
 chown "${LOCAL_USER_NAME}:${LOCAL_USER_GROUP}" "$( tty )"
+
+## Remove control variables to keep environmnent reasonably clean
+export -n LOCAL_USER_NAME LOCAL_USER_GROUP LOCAL_USER_ID HOST_DOCKER_GID
 
 if type -t setuidgid >/dev/null; then
     ## And now play nice (mostly for file permissions)
