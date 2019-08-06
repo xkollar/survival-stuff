@@ -10,6 +10,6 @@ find "${DOCKERFILES_DIR}" -type f -name Dockerfile -print0 \
     TAG="${DIR#${DOCKERFILES_DIR}/}"
     (
         cd "${DIR}" || exit 1
-        docker build -t "${TAG}" .
+        docker build "${@}" -t "${TAG}" .
     )
 done
