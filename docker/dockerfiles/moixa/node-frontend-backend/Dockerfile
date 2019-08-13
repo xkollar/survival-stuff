@@ -37,7 +37,6 @@ RUN true \
     && yarn global add \
         pnpm \
         serverless \
-        typescript \
     && yarn cache clean
 
 CMD ["/bin/bash"]
