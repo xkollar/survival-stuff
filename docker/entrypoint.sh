@@ -12,7 +12,7 @@ groupadd \
 if getent passwd "${LOCAL_USER_ID}" >/dev/null; then
     usermod \
         --login "${LOCAL_USER_NAME}" \
-        "$( getent passwd "${LOCAL_USER_ID}" | sed 's/:.*//' )"
+        "$( getent passwd "${LOCAL_USER_ID}" | cut -d: -f1 )"
 fi
 
 if ! getent passwd "${LOCAL_USER_NAME}" >/dev/null; then
