@@ -14,6 +14,7 @@ RUN true \
         grep \
         gnupg \
         jq \
+        less \
         man \
         python3 \
         python3-pip \
