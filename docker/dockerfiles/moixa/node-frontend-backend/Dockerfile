@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 RUN true \
     && apt-get update -y \
@@ -11,6 +11,7 @@ RUN true \
         gawk \
         git \
         grep \
+        gnupg \
         jq \
         man \
         python3 \
