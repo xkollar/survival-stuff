@@ -54,12 +54,15 @@ export -n LOCAL_USER_NAME LOCAL_USER_GROUP LOCAL_USER_ID HOST_DOCKER_GID
 
 if type -t setuidgid >/dev/null; then
     ## And now play nice (mostly for file permissions)
-    HOME="/home/${LOCAL_USER_NAME}" setuidgid "${LOCAL_USER_NAME}" "${@-bash}"
+    exec env -- \
+        USER="${LOCAL_USER_NAME}" \
+        HOME="$( getent passwd "${LOCAL_USER_NAME}" | cut -d: -f6 )" \
+        setuidgid "${LOCAL_USER_NAME}" "${@-bash}"
 else
     echo 'Command setuidgid not found in the docker image.'
     if [[ ${#} -eq 0 ]]; then
         echo 'Using '"'su'"' ... not ideal but *might* work.'
-        su "${LOCAL_USER_NAME}"
+        exec su "${LOCAL_USER_NAME}"
     else
         "Exiting..."
     fi

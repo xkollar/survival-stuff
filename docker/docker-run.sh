@@ -181,6 +181,7 @@ function main() {
     DOCKER_HOSTNAME=${docker_image//[^a-z0-9-]/-}
 
     exec docker run --rm -it \
+    --init \
     --hostname "${DOCKER_HOSTNAME}" \
     --env "LOCAL_USER_NAME=${DOCKER_USER}" \
     --env "LOCAL_USER_ID=${UID}" \
