@@ -1,6 +1,7 @@
 FROM ubuntu:18.04
 
 RUN true \
+    && sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\/\?\s/mirror:\/\/mirrors.ubuntu.com\/mirrors.txt /' /etc/apt/sources.list \
     && apt-get update -y \
     && apt-get install -y --no-install-recommends \
         apt-transport-https \
