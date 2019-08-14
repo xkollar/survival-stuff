@@ -15,6 +15,12 @@ RUN true \
         gnupg \
         jq \
         less \
+        libasound2 \
+        libgtk-3-0 \
+        libnss3 \
+        libx11-xcb1 \
+        libxss1 \
+        libxtst6 \
         man \
         python3 \
         python3-pip \
