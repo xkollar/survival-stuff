@@ -52,7 +52,7 @@ Otions:
     --forward-x          Make host's X11 sockets accessible inside docker
                          Best used with Xephyr session
     --host-docker        Make host's docker socket accessible inside docker
-    --current-directory  Instead of git rood enter correspoding CWD
+    --current-directory  Instead of git root enter correspoding CWD
     --unconfined-debug   Disable security confinement
                          Allows strace and similar
     -h, --help           Display this help and exit
