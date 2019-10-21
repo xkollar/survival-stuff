@@ -14,6 +14,7 @@ declare -r DESTINATION=${1?Destination}; shift
 convert "${IMAGE}" \
     -scale ">${RESOLUTION}^" \
     -gravity Center \
+    -background black \
     -extent "${RESOLUTION}" \
     -scale 12.5% -scale 800% \
     \( -size 8x8 canvas:black +antialias -fill white -draw 'circle 3,3 0,3' -write mpr:tile +delete \) \
