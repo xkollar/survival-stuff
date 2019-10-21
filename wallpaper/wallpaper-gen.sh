@@ -58,16 +58,14 @@ function run_hack() {
 }
 
 main() {
-    mapfile -t -d $'\0' hacks < <( find "${HACKS_DIR}" -executable -type f -print0 )
-
     if [[ "${#}" -ge 1 ]]; then
-        if [[ -x "${1}" ]]; then
-            hack=${1}
-        else
-            exit 1
-        fi
+        local -a find_args=( -name "${1}" )
     else
-        hack=${hacks[$(( RANDOM % ${#hacks[@]} ))]}
+        local -a find_args=(  )
+    fi
+    hack=$( find "${HACKS_DIR}" "${find_args[@]}" -executable -type f -print0 | shuf -zn1 | tr -d '\0' )
+    if [[ -z "${hack}" ]]; then
+        die "No matching hack."
     fi
     echo "Running: ${hack}"
     mapfile -t usage < <( ${hack} | tr -d '\n' | tr ' ' '\n' )
