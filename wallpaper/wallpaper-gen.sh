@@ -26,7 +26,7 @@ function get_resolution() {
 }
 
 function get_single_image_path() {
-    find -L "${IMAGES_DIR}" -type f | shuf -n1 | xargs realpath
+    find -L "${IMAGES_DIR}" -type f -print0 | shuf --zero-terminated -n1 | xargs -0 realpath
 }
 
 function run_hack() {
