@@ -19,6 +19,8 @@ fi
 
 convert "${IMAGE}" \
     -scale ">${RESOLUTION}^" \
+    -gravity center \
+    -extent ">${RESOLUTION}^" \
     -scale 5.5% \
     txt: \
 | sed '1d; s/:.* /,/;' \
@@ -26,5 +28,7 @@ convert "${IMAGE}" \
 | awk '{printf "%d,%d,%s\n", ($1*2+$2%2)*10, $2*2*10, $3}' \
 | convert "${IMAGE}" \
     -scale ">${RESOLUTION}^" \
+    -gravity center \
+    -extent ">${RESOLUTION}^" \
     -sparse-color voronoi '@-' \
     "${DESTINATION}"
