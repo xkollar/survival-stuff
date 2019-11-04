@@ -27,4 +27,4 @@ convert "${IMAGE}" \
 | convert "${IMAGE}" \
     -scale ">${RESOLUTION}^" \
     -sparse-color voronoi '@-' \
-    ${DESTINATION}
+    "${DESTINATION}"
