@@ -6,6 +6,7 @@ RUN true \
     && apt-get install -y --no-install-recommends \
         apt-transport-https \
         bc \
+        build-essential \
         curl \
         daemontools \
         docker.io \
@@ -44,7 +45,7 @@ RUN true \
     && ln -sf /usr/bin/python3 /usr/bin/python \
     && npm install --global yarn@1.16.0 \
     && yarn global add \
-        pnpm \
+        pnpm@4.9.3 \
         serverless \
     && yarn cache clean
 
