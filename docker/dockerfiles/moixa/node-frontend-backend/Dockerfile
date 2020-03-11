@@ -26,6 +26,7 @@ RUN true \
         python3 \
         python3-pip \
         python3-setuptools \
+        python-dev \
         rsync \
         screen \
         unzip \
