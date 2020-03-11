@@ -44,9 +44,9 @@ RUN true \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && ln -sf /usr/bin/python3 /usr/bin/python \
-    && npm install --global yarn@1.16.0 \
+    && npm install --global yarn@1.22.0 \
     && yarn global add \
-        pnpm@4.9.3 \
+        pnpm@3.8.1 \
         serverless \
     && yarn cache clean
 
