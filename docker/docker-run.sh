@@ -151,7 +151,7 @@ function main() {
     fi
 
     if [[ "${host_docker}" == true ]]; then
-        extra_env_params+=( --env "HOST_DOCKER_GID=$( getent group docker | cut -d: -f3 )" )
+        extra_env_params+=( --env "HOST_DOCKER_GID=$( ls -n /var/run/docker.sock | awk '{print $4}' )" )
         extra_volume_params+=( --volume /var/run/docker.sock:/var/run/docker.sock )
     fi
 
