@@ -39,6 +39,8 @@ readonly DOCKER_GIT_ROOT_DIR=/repo
 declare DOCKER_HOSTNAME=docker-for-dev
 readonly DOCKER_USER=devel
 
+readonly HOST_DOCKER_SOCKET=$( realpath /var/run/docker.sock )
+
 function help() {
     cat <<__EOF__
 Usage: ${0} --docker-image IMAGE [OPTS] [-- [extra-docker-options]]
@@ -151,8 +153,8 @@ function main() {
     fi
 
     if [[ "${host_docker}" == true ]]; then
-        extra_env_params+=( --env "HOST_DOCKER_GID=$( ls -n /var/run/docker.sock | awk '{print $4}' )" )
-        extra_volume_params+=( --volume /var/run/docker.sock:/var/run/docker.sock )
+        extra_env_params+=( --env "HOST_DOCKER_GID=$( ls -n "${HOST_DOCKER_SOCKET}" | awk '{print $4}' )" )
+        extra_volume_params+=( --volume "${HOST_DOCKER_SOCKET}:/var/run/docker.sock" )
     fi
 
     if [[ "${persistent_home}" == true ]]; then
