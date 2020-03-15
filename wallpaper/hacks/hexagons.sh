@@ -27,6 +27,7 @@ convert "${IMAGE}" \
 | sed 's/,/ /;s/,/ /' \
 | awk '{printf "%d,%d,%s\n", ($1*2+$2%2)*10, $2*2*10, $3}' \
 | convert "${IMAGE}" \
+    -background black \
     -scale ">${RESOLUTION}^" \
     -gravity center \
     -extent ">${RESOLUTION}^" \
