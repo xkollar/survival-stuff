@@ -58,7 +58,8 @@ def main(device_path):
         start = time.perf_counter()
         for chunk in iter(lambda: handle.read(4096), b''):
             md5_read.update(chunk)
-            if i % 1024 == 0:
+            size += len(chunk)
+            if size % (1024 * 1024) == 0:
                 stats(start, size, block_size*i)
         read_time = time.perf_counter() - start
         print("Read in", read_time)
