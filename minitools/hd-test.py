@@ -56,11 +56,13 @@ def main(device_path):
     md5_read = hashlib.md5()
     with open(device_path, 'rb') as handle:
         start = time.perf_counter()
+        i = 0
         for chunk in iter(lambda: handle.read(4096), b''):
             md5_read.update(chunk)
             size += len(chunk)
             if size % (1024 * 1024) == 0:
                 stats(start, size, block_size*i)
+            i++
         read_time = time.perf_counter() - start
         print("Read in", read_time)
         print(f"read speed {fmt(size/read_time, unit='B/s')}")

@@ -7,4 +7,4 @@ gs \
     -r300 \
     -dTextAlphaBits=4 \
     -dGraphicsAlphaBits=4 \
-`   "${1?:PDF to convert}"
+    "${1?:PDF to convert}"
