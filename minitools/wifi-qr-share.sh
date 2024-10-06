@@ -67,6 +67,7 @@ function share_saved() {
     CONNECT_STRING+=';'
 
     echo -n "${CONNECT_STRING}" | qr
+    echo "${SSID}:${PSK}"
 }
 
 function main() {
